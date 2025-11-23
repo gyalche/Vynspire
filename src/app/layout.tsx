@@ -29,7 +29,7 @@ export default function RootLayout({
           storageKey="vynspire-theme"
         >
           <Navbar />
-          <main className="pt-20 min-h-screen px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+          <main className="relative z-10 pt-28 pb-16 min-h-screen px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
             {children}
           </main>
           <Toaster theme="system" position="bottom-right" />

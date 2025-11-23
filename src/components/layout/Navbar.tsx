@@ -1,17 +1,16 @@
 'use client';
 
 import Link from 'next/link';
-import { usePathname, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { useAuth } from '@/lib/store/authStore';
 import { Button } from '@/components/ui/Button';
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
-import { PenSquare, LogOut, User } from 'lucide-react';
+import { PenSquare, LogOut } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 export function Navbar() {
     const { user, logout } = useAuth();
     const router = useRouter();
-    const pathname = usePathname();
 
     const handleLogout = () => {
         logout();
@@ -22,44 +21,65 @@ export function Navbar() {
         <motion.nav
             initial={{ y: -100 }}
             animate={{ y: 0 }}
-            className="fixed top-0 left-0 right-0 z-50 glass border-b border-border"
+            transition={{ duration: 0.6, ease: 'easeOut' }}
+            className="fixed top-0 left-0 right-0 z-50"
         >
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="flex items-center justify-between h-16">
-                    <div className="flex items-center">
-                        <Link href="/" className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary">
-                            Vynspire
-                        </Link>
-                    </div>
+                <div className="relative mt-3 rounded-full glass border border-border/40 px-4 sm:px-6 py-2.5 shadow-[0_20px_60px_rgba(15,23,42,0.35)]">
+                    <div className="absolute inset-x-6 -top-px h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent pointer-events-none" />
+                    <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                        <div className="flex items-center gap-4">
+                            <Link
+                                href="/"
+                                className="text-2xl font-black tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-primary via-secondary to-secondary/70"
+                            >
+                                Vynspire
+                            </Link>
+                            <span className="hidden md:inline-flex text-[0.65rem] uppercase tracking-[0.4em] text-muted-foreground">
+                                Stories crafted daily
+                            </span>
+                        </div>
 
-                    <div className="flex items-center space-x-4">
-                        <ThemeToggle />
-                        {user ? (
-                            <>
-                                <Link href="/create">
-                                    <Button variant="ghost" className="gap-2">
-                                        <PenSquare size={18} />
-                                        Write
+                        <div className="flex items-center gap-2 sm:gap-3">
+                            <ThemeToggle />
+                            {user ? (
+                                <>
+                                    <Link href="/create" className="hidden sm:block">
+                                        <Button variant="outline" size="sm" className="gap-2">
+                                            <PenSquare size={16} />
+                                            Write
+                                        </Button>
+                                    </Link>
+                                    <div className="flex items-center gap-3 px-4 py-1.5 rounded-full border border-border/40 bg-white/40 text-sm font-medium text-foreground shadow-inner dark:bg-white/10">
+                                        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-primary to-secondary text-white flex items-center justify-center font-semibold">
+                                            {user.name.charAt(0)}
+                                        </div>
+                                        <div className="hidden sm:flex flex-col leading-tight">
+                                            <span className="text-[0.65rem] uppercase tracking-wide text-muted-foreground">
+                                                Signed in
+                                            </span>
+                                            <span>{user.name}</span>
+                                        </div>
+                                    </div>
+                                    <Button variant="destructive" size="sm" onClick={handleLogout}>
+                                        <LogOut size={18} />
                                     </Button>
-                                </Link>
-                                <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10">
-                                    <User size={16} className="text-primary" />
-                                    <span className="text-sm font-medium">{user.name}</span>
-                                </div>
-                                <Button variant="destructive" size="sm" onClick={handleLogout}>
-                                    <LogOut size={18} />
-                                </Button>
-                            </>
-                        ) : (
-                            <>
-                                <Link href="/login">
-                                    <Button variant="ghost">Login</Button>
-                                </Link>
-                                <Link href="/register">
-                                    <Button>Get Started</Button>
-                                </Link>
-                            </>
-                        )}
+                                </>
+                            ) : (
+                                <>
+                                    <Link href="/login">
+                                        <Button variant="ghost" size="sm" className="px-4">
+                                            Login
+                                        </Button>
+                                    </Link>
+                                    <Link href="/register">
+                                        <Button size="sm" className="px-5">
+                                            Get Started
+                                        </Button>
+                                    </Link>
+                                </>
+                            )}
+                        </div>
                     </div>
                 </div>
             </div>

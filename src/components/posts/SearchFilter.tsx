@@ -4,6 +4,7 @@ import { Search, X } from 'lucide-react';
 import { Input } from '@/components/ui/Input';
 import { Button } from '@/components/ui/Button';
 import { motion } from 'framer-motion';
+import { cn } from '@/lib/utils';
 
 interface SearchFilterProps {
     searchQuery: string;
@@ -20,11 +21,14 @@ export function SearchFilter({
     setSelectedCategory,
     categories,
 }: SearchFilterProps) {
+    const categoryOptions = ['All', ...categories];
+
     return (
         <motion.div
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="flex flex-col md:flex-row gap-4 mb-8"
+            transition={{ duration: 0.4 }}
+            className="glass rounded-3xl border border-border/40 p-4 md:p-6 flex flex-col md:flex-row md:items-center gap-4 shadow-[0_25px_60px_rgba(15,23,42,0.15)]"
         >
             <div className="relative flex-grow">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground h-4 w-4" />
@@ -32,7 +36,7 @@ export function SearchFilter({
                     placeholder="Search stories..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="pl-10 pr-10 bg-input border-border focus:bg-accent/10 transition-colors"
+                    className="pl-12 pr-12 h-12 rounded-2xl border-none bg-white/80 shadow-inner shadow-primary/10 focus:bg-white/90 dark:bg-white/5 dark:shadow-black/40"
                 />
                 {searchQuery && (
                     <button
@@ -44,24 +48,26 @@ export function SearchFilter({
                     </button>
                 )}
             </div>
-            <div className="flex gap-2 overflow-x-auto pb-2 md:pb-0 no-scrollbar">
-                <Button
-                    variant={selectedCategory === 'All' ? 'default' : 'outline'}
-                    onClick={() => setSelectedCategory('All')}
-                    className="whitespace-nowrap"
-                >
-                    All
-                </Button>
-                {categories.map((category) => (
-                    <Button
-                        key={category}
-                        variant={selectedCategory === category ? 'default' : 'outline'}
-                        onClick={() => setSelectedCategory(category)}
-                        className="whitespace-nowrap"
-                    >
-                        {category}
-                    </Button>
-                ))}
+            <div className="flex gap-2 overflow-x-auto pb-1 md:pb-0 no-scrollbar">
+                {categoryOptions.map((category) => {
+                    const isActive = selectedCategory === category;
+                    return (
+                        <Button
+                            key={category}
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => setSelectedCategory(category)}
+                            className={cn(
+                                'whitespace-nowrap border transition-all duration-200',
+                                isActive
+                                    ? 'bg-gradient-to-r from-primary to-secondary text-white border-transparent shadow-[0_12px_30px_rgba(79,70,229,0.35)]'
+                                    : 'text-muted-foreground border-border/40 hover:text-foreground hover:border-border/80'
+                            )}
+                        >
+                            {category}
+                        </Button>
+                    );
+                })}
             </div>
         </motion.div>
     );
