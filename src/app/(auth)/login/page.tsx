@@ -47,7 +47,7 @@ export default function LoginPage() {
                 transition={{ duration: 0.5 }}
                 className="w-full max-w-md"
             >
-                <Card className="border-white/10 bg-black/40 backdrop-blur-xl">
+                <Card className="border-border bg-card/40 backdrop-blur-xl">
                     <CardHeader>
                         <CardTitle className="text-3xl font-bold text-center bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary">
                             Welcome Back
@@ -59,7 +59,7 @@ export default function LoginPage() {
                     <CardContent>
                         <form onSubmit={handleSubmit} className="space-y-4">
                             <div className="space-y-2">
-                                <label className="text-sm font-medium text-gray-300">Email</label>
+                                <label className="text-sm font-medium text-foreground">Email</label>
                                 <Input
                                     type="email"
                                     placeholder="user@example.com"
@@ -69,7 +69,7 @@ export default function LoginPage() {
                                 />
                             </div>
                             <div className="space-y-2">
-                                <label className="text-sm font-medium text-gray-300">Password</label>
+                                <label className="text-sm font-medium text-foreground">Password</label>
                                 <PasswordInput
                                     placeholder="••••••••"
                                     value={password}
@@ -78,7 +78,7 @@ export default function LoginPage() {
                                 />
                             </div>
                             {error && (
-                                <div className="text-red-500 text-sm text-center bg-red-500/10 p-2 rounded border border-red-500/20">
+                                <div className="text-destructive text-sm text-center bg-destructive/10 p-2 rounded border border-destructive/20">
                                     {error}
                                 </div>
                             )}
@@ -88,7 +88,7 @@ export default function LoginPage() {
                         </form>
                     </CardContent>
                     <CardFooter className="justify-center">
-                        <p className="text-sm text-gray-400">
+                        <p className="text-sm text-muted-foreground">
                             Don't have an account?{' '}
                             <Link href="/register" className="text-primary hover:underline">
                                 Sign up

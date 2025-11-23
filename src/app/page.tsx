@@ -33,10 +33,10 @@ export default function Home() {
   return (
     <div className="space-y-8 pb-10">
       <div className="flex flex-col space-y-2">
-        <h1 className="text-4xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-500">
+        <h1 className="text-4xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-foreground to-muted-foreground">
           Latest Stories
         </h1>
-        <p className="text-gray-400 text-lg">
+        <p className="text-muted-foreground text-lg">
           Discover the latest insights and thoughts from our community.
         </p>
       </div>
@@ -62,7 +62,7 @@ export default function Home() {
               <PostCard key={post.id} post={post} index={index} />
             ))
           ) : (
-            <div className="col-span-full text-center py-20 text-gray-500">
+            <div className="col-span-full text-center py-20 text-muted-foreground">
               No stories found matching your criteria.
             </div>
           )}

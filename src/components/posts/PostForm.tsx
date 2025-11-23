@@ -48,7 +48,7 @@ export function PostForm({ initialData, onSubmit, isLoading, buttonText }: PostF
         <form onSubmit={handleSubmit} className="space-y-6">
             <div className="grid gap-6">
                 <div className="space-y-2">
-                    <label className="text-sm font-medium text-gray-300">Title</label>
+                    <label className="text-sm font-medium text-foreground">Title</label>
                     <Input
                         name="title"
                         placeholder="Enter post title"
@@ -61,7 +61,7 @@ export function PostForm({ initialData, onSubmit, isLoading, buttonText }: PostF
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-2">
-                        <label className="text-sm font-medium text-gray-300">Category</label>
+                        <label className="text-sm font-medium text-foreground">Category</label>
                         <Input
                             name="category"
                             placeholder="e.g. Technology"
@@ -71,7 +71,7 @@ export function PostForm({ initialData, onSubmit, isLoading, buttonText }: PostF
                         />
                     </div>
                     <div className="space-y-2">
-                        <label className="text-sm font-medium text-gray-300">Excerpt</label>
+                        <label className="text-sm font-medium text-foreground">Excerpt</label>
                         <Input
                             name="excerpt"
                             placeholder="Short description"
@@ -83,14 +83,14 @@ export function PostForm({ initialData, onSubmit, isLoading, buttonText }: PostF
                 </div>
 
                 <div className="space-y-2">
-                    <label className="text-sm font-medium text-gray-300">Content</label>
+                    <label className="text-sm font-medium text-foreground">Content</label>
                     <textarea
                         name="content"
                         placeholder="Write your story..."
                         value={formData.content}
                         onChange={handleChange}
                         required
-                        className="flex min-h-[300px] w-full rounded-md border border-white/10 bg-white/5 px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 transition-all duration-200 focus:bg-white/10 resize-y"
+                        className="flex min-h-[300px] w-full rounded-md border border-border bg-input px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 transition-all duration-200 focus:bg-accent/10 resize-y"
                     />
                 </div>
             </div>

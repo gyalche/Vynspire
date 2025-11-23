@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { useAuth } from '@/lib/store/authStore';
 import { Button } from '@/components/ui/Button';
+import { ThemeToggle } from '@/components/ui/ThemeToggle';
 import { PenSquare, LogOut, User } from 'lucide-react';
 import { motion } from 'framer-motion';
 
@@ -21,7 +22,7 @@ export function Navbar() {
         <motion.nav
             initial={{ y: -100 }}
             animate={{ y: 0 }}
-            className="fixed top-0 left-0 right-0 z-50 glass border-b border-white/10"
+            className="fixed top-0 left-0 right-0 z-50 glass border-b border-border"
         >
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex items-center justify-between h-16">
@@ -32,6 +33,7 @@ export function Navbar() {
                     </div>
 
                     <div className="flex items-center space-x-4">
+                        <ThemeToggle />
                         {user ? (
                             <>
                                 <Link href="/create">

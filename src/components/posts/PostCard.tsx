@@ -26,13 +26,13 @@ export function PostCard({ post, index }: PostCardProps) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, delay: index * 0.1 }}
         >
-            <Card className="h-full flex flex-col overflow-hidden group border-white/5 bg-white/5 hover:bg-white/10 transition-all duration-300">
+            <Card className="h-full flex flex-col overflow-hidden group transition-all duration-300">
                 <CardHeader>
                     <div className="flex justify-between items-start mb-2">
                         <span className="px-3 py-1 rounded-full text-xs font-medium bg-primary/20 text-primary border border-primary/20">
                             {post.category}
                         </span>
-                        <div className="flex items-center gap-3 text-xs text-gray-400">
+                        <div className="flex items-center gap-3 text-xs text-muted-foreground">
                             <span className="flex items-center gap-1">
                                 <Calendar size={12} />
                                 {post.date}
@@ -48,12 +48,12 @@ export function PostCard({ post, index }: PostCardProps) {
                     </CardTitle>
                 </CardHeader>
                 <CardContent className="flex-grow">
-                    <p className="text-gray-400 text-sm line-clamp-3 leading-relaxed">
+                    <p className="text-muted-foreground text-sm line-clamp-3 leading-relaxed">
                         {post.excerpt}
                     </p>
                 </CardContent>
-                <CardFooter className="flex justify-between items-center border-t border-white/5 pt-4 mt-auto">
-                    <div className="flex items-center gap-2 text-xs text-gray-500">
+                <CardFooter className="flex justify-between items-center border-t border-border pt-4 mt-auto">
+                    <div className="flex items-center gap-2 text-xs text-muted-foreground">
                         <div className="w-6 h-6 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-white font-bold">
                             {post.author.charAt(0)}
                         </div>

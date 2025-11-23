@@ -40,24 +40,24 @@ export default function PostDetailPage({ params }: { params: { id: string } }) {
             className="max-w-4xl mx-auto pb-20"
         >
             <Link href="/">
-                <Button variant="ghost" className="mb-6 pl-0 hover:pl-2 transition-all text-gray-400 hover:text-white">
+                <Button variant="ghost" className="mb-6 pl-0 hover:pl-2 transition-all text-muted-foreground hover:text-foreground">
                     <ArrowLeft className="mr-2 h-4 w-4" /> Back to Home
                 </Button>
             </Link>
 
             <article className="prose prose-invert prose-lg max-w-none">
-                <div className="mb-8 border-b border-white/10 pb-8">
+                <div className="mb-8 border-b border-border pb-8">
                     <div className="flex items-center gap-2 mb-4">
                         <span className="px-3 py-1 rounded-full text-sm font-medium bg-primary/20 text-primary border border-primary/20">
                             {currentPost.category}
                         </span>
                     </div>
 
-                    <h1 className="text-5xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400 leading-tight">
+                    <h1 className="text-5xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-foreground to-muted-foreground leading-tight">
                         {currentPost.title}
                     </h1>
 
-                    <div className="flex items-center justify-between text-gray-400 text-sm">
+                    <div className="flex items-center justify-between text-muted-foreground text-sm">
                         <div className="flex items-center gap-4">
                             <div className="flex items-center gap-2">
                                 <div className="w-8 h-8 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-white font-bold">
@@ -86,7 +86,7 @@ export default function PostDetailPage({ params }: { params: { id: string } }) {
                     </div>
                 </div>
 
-                <div className="text-gray-300 leading-loose whitespace-pre-wrap">
+                <div className="text-foreground leading-loose whitespace-pre-wrap">
                     {currentPost.content}
                 </div>
             </article>
