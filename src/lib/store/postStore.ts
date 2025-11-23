@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { postsApi } from '../api/mockApi';
 
-interface Post {
+export interface Post {
     id: string;
     title: string;
     excerpt: string;
@@ -21,13 +21,15 @@ interface PostsState {
     createPost: (post: Omit<Post, 'id' | 'date' | 'author'>) => Promise<void>;
     updatePost: (id: string, updates: Partial<Post>) => Promise<void>;
     deletePost: (id: string) => Promise<void>;
+    setCurrentPost: (post: Post | null) => void;
 }
 
-export const usePosts = create<PostsState>((set, get) => ({
+export const usePosts = create<PostsState>((set) => ({
     posts: [],
     currentPost: null,
     isLoading: false,
     error: null,
+    setCurrentPost: (post) => set({ currentPost: post }),
 
     fetchPosts: async () => {
         set({ isLoading: true, error: null });

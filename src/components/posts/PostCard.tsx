@@ -3,6 +3,7 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/componen
 import { Button } from '@/components/ui/Button';
 import { Calendar, ArrowRight, Clock } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { usePosts } from '@/lib/store/postStore';
 
 interface PostCardProps {
     post: {
@@ -19,6 +20,12 @@ interface PostCardProps {
 
 export function PostCard({ post, index }: PostCardProps) {
     const readingTime = Math.ceil(post.content.split(' ').length / 200);
+    const setCurrentPost = usePosts((state) => state.setCurrentPost);
+    const queryParams = new URLSearchParams({
+        title: post.title,
+        category: post.category,
+        excerpt: post.excerpt,
+    }).toString();
 
     return (
         <motion.div
@@ -64,8 +71,13 @@ export function PostCard({ post, index }: PostCardProps) {
                             <span className="text-foreground">{post.author}</span>
                         </div>
                     </div>
-                    <Link href={`/post/${post.id}`}>
-                        <Button variant="ghost" size="sm" className="gap-1 text-primary hover:text-primary hover:bg-primary/10">
+                    <Link href={`/post/${post.id}?${queryParams}`}>
+                        <Button
+                            variant="ghost"
+                            size="sm"
+                            className="gap-1 text-primary hover:text-primary hover:bg-primary/10"
+                            onClick={() => setCurrentPost(post)}
+                        >
                             Read More <ArrowRight size={14} />
                         </Button>
                     </Link>

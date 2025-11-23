@@ -27,8 +27,8 @@ export function Navbar() {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="relative mt-3 rounded-full glass border border-border/40 px-4 sm:px-6 py-2.5 shadow-[0_20px_60px_rgba(15,23,42,0.35)]">
                     <div className="absolute inset-x-6 -top-px h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent pointer-events-none" />
-                    <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                        <div className="flex items-center gap-4">
+                    <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                        <div className="flex items-center justify-between gap-4 sm:justify-start">
                             <Link
                                 href="/"
                                 className="text-2xl font-black tracking-tight text-foreground drop-shadow-[0_6px_20px_rgba(79,70,229,0.3)] dark:text-white"
@@ -38,10 +38,15 @@ export function Navbar() {
                             <span className="hidden md:inline-flex text-[0.65rem] uppercase tracking-[0.4em] text-muted-foreground">
                                 Stories crafted daily
                             </span>
+                            <div className="flex sm:hidden">
+                                <ThemeToggle />
+                            </div>
                         </div>
 
-                        <div className="flex items-center gap-2 sm:gap-3 text-foreground">
-                            <ThemeToggle />
+                        <div className="flex flex-wrap items-center gap-2 sm:gap-3 text-foreground">
+                            <div className="hidden sm:block">
+                                <ThemeToggle />
+                            </div>
                             {user ? (
                                 <>
                                     <Link href="/create" className="hidden sm:block">
@@ -77,12 +82,12 @@ export function Navbar() {
                             ) : (
                                 <>
                                     <Link href="/login">
-                                        <Button variant="ghost" size="sm" className="px-4 text-foreground">
+                                        <Button variant="ghost" size="sm" className="px-4 text-foreground w-full sm:w-auto">
                                             Login
                                         </Button>
                                     </Link>
                                     <Link href="/register">
-                                        <Button size="sm" className="px-5">
+                                        <Button size="sm" className="px-5 w-full sm:w-auto">
                                             Get Started
                                         </Button>
                                     </Link>
