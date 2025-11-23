@@ -1,12 +1,11 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
-import { Card, CardContent } from '@/components/ui/Card';
-import { ArrowLeft, Save } from 'lucide-react';
+import { Save, Sparkles } from 'lucide-react';
 import Link from 'next/link';
+import { toast } from 'sonner';
 
 interface PostFormProps {
     initialData?: {
@@ -27,6 +26,7 @@ export function PostForm({ initialData, onSubmit, isLoading, buttonText }: PostF
         content: '',
         category: '',
     });
+    const [isGenerating, setIsGenerating] = useState(false);
 
     useEffect(() => {
         if (initialData) {
@@ -42,6 +42,41 @@ export function PostForm({ initialData, onSubmit, isLoading, buttonText }: PostF
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         await onSubmit(formData);
+    };
+
+    const generateAIContent = () => {
+        const baseTitle = formData.title || 'Your Story';
+        const baseCategory = formData.category || 'General';
+
+        return [
+            `## ${baseTitle}`,
+            '',
+            `*Category: ${baseCategory}*`,
+            '',
+            `In today's rapidly evolving ${baseCategory.toLowerCase()} landscape, "${baseTitle}" stands out as a compelling narrative that explores the nuances of innovation, human stories, and the impact of thoughtful design.`,
+            '',
+            `1. **Context matters** – unpack the current trends shaping ${baseCategory.toLowerCase()} with tangible examples.`,
+            `2. **Personal perspective** – weave in anecdotes or insights that only you can provide.`,
+            `3. **Actionable takeaways** – end each section with a clear learning or question for readers.`,
+            '',
+            `> Keep the tone conversational and purposeful. Celebrate wins, acknowledge challenges, and invite readers to reflect.`,
+            '',
+            `Wrap up by summarizing why "${baseTitle}" should matter right now and what readers can do with the insight.`,
+        ].join('\n');
+    };
+
+    const handleGenerateContent = async () => {
+        if (!formData.title || !formData.category) {
+            toast.error('Add a title and category first so the AI knows what to write about.');
+            return;
+        }
+
+        setIsGenerating(true);
+        await new Promise((resolve) => setTimeout(resolve, 900));
+        const aiDraft = generateAIContent();
+        setFormData((prev) => ({ ...prev, content: aiDraft }));
+        setIsGenerating(false);
+        toast.success('AI draft generated. Make it yours!');
     };
 
     return (
@@ -84,6 +119,21 @@ export function PostForm({ initialData, onSubmit, isLoading, buttonText }: PostF
 
                 <div className="space-y-2">
                     <label className="text-sm font-medium text-foreground">Content</label>
+                    <div className="flex flex-wrap items-center justify-between gap-3 text-xs text-muted-foreground">
+                        <span>Use the AI helper for a structured starting point.</span>
+                        <Button
+                            type="button"
+                            variant="outline"
+                            size="sm"
+                            onClick={handleGenerateContent}
+                            isLoading={isGenerating}
+                            disabled={isGenerating}
+                            className="gap-2"
+                        >
+                            <Sparkles size={14} />
+                            Generate with AI
+                        </Button>
+                    </div>
                     <textarea
                         name="content"
                         placeholder="Write your story..."
