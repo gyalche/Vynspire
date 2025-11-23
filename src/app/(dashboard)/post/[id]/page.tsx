@@ -5,7 +5,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { useAuth } from '@/lib/store/authStore';
 import { usePosts, type Post } from '@/lib/store/postStore';
 import { Button } from '@/components/ui/Button';
-import { Loader2, Calendar, ArrowLeft, Trash2, Edit, Sparkles } from 'lucide-react';
+import { Loader2, Calendar, ArrowLeft, Trash2, Edit, Sparkles, Volume2, VolumeX } from 'lucide-react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 
@@ -17,6 +17,10 @@ export default function PostDetailPage({ params }: { params: { id: string } }) {
     const [aiContent, setAiContent] = useState<string | null>(null);
     const [aiGenerating, setAiGenerating] = useState(false);
     const aiTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+    const [isSpeaking, setIsSpeaking] = useState(false);
+    const [speechSupported, setSpeechSupported] = useState(false);
+    const synthRef = useRef<SpeechSynthesis | null>(null);
+    const utteranceRef = useRef<SpeechSynthesisUtterance | null>(null);
 
     const queryMeta = useMemo(() => {
         const title = searchParams.get('title') ?? undefined;
@@ -94,6 +98,25 @@ export default function PostDetailPage({ params }: { params: { id: string } }) {
         }
     }, [basePost, isLoading, aiContent]);
 
+    useEffect(() => {
+        if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+            synthRef.current = window.speechSynthesis;
+            setSpeechSupported(true);
+        }
+        return () => {
+            if (synthRef.current) {
+                synthRef.current.cancel();
+            }
+        };
+    }, []);
+
+    useEffect(() => {
+        if (isSpeaking) {
+            synthRef.current?.cancel();
+            setIsSpeaking(false);
+        }
+    }, [resolvedContent]);
+
     const handleDelete = async () => {
         if (confirm('Are you sure you want to delete this post?')) {
             await deletePost(params.id);
@@ -103,6 +126,28 @@ export default function PostDetailPage({ params }: { params: { id: string } }) {
 
     const handleGenerateManually = () => {
         runAIGeneration(basePost ?? fallbackShell);
+    };
+
+    const stopSpeech = () => {
+        synthRef.current?.cancel();
+        utteranceRef.current = null;
+        setIsSpeaking(false);
+    };
+
+    const handleToggleListen = () => {
+        if (!speechSupported || !resolvedContent) return;
+        if (isSpeaking) {
+            stopSpeech();
+            return;
+        }
+
+        const utterance = new SpeechSynthesisUtterance(`${effectivePost?.title ?? ''}. ${resolvedContent}`);
+        utterance.onend = () => setIsSpeaking(false);
+        utterance.onerror = () => setIsSpeaking(false);
+        utteranceRef.current = utterance;
+        synthRef.current?.cancel();
+        synthRef.current?.speak(utterance);
+        setIsSpeaking(true);
     };
 
     if (isLoading && !effectivePost && !aiContent) {
@@ -153,9 +198,11 @@ export default function PostDetailPage({ params }: { params: { id: string } }) {
                         )}
                     </div>
 
-                    <h1 className="text-5xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-foreground to-muted-foreground leading-tight">
-                        {effectivePost.title}
-                    </h1>
+                    <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+                        <h1 className="text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-foreground to-muted-foreground leading-tight">
+                            {effectivePost.title}
+                        </h1>
+                    </div>
 
                     <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between text-muted-foreground text-sm">
                         <div className="flex items-center gap-4 flex-wrap">
@@ -187,8 +234,24 @@ export default function PostDetailPage({ params }: { params: { id: string } }) {
                 </div>
 
                 {resolvedContent ? (
-                    <div className="text-foreground leading-loose whitespace-pre-wrap">
-                        {resolvedContent}
+                    <div className="space-y-4">
+                        <div className="flex justify-end">
+                            {speechSupported && (
+                                <Button
+                                    type="button"
+                                    variant="outline"
+                                    size="sm"
+                                    className="gap-2"
+                                    onClick={handleToggleListen}
+                                >
+                                    {isSpeaking ? <VolumeX size={16} /> : <Volume2 size={16} />}
+                                    {isSpeaking ? 'Stop audio' : 'Listen to content'}
+                                </Button>
+                            )}
+                        </div>
+                        <div className="text-foreground leading-loose whitespace-pre-wrap">
+                            {resolvedContent}
+                        </div>
                     </div>
                 ) : (
                     <div className="flex flex-col items-center gap-4 text-muted-foreground py-12">
