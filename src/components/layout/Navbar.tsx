@@ -31,7 +31,7 @@ export function Navbar() {
                         <div className="flex items-center gap-4">
                             <Link
                                 href="/"
-                                className="text-2xl font-black tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-foreground via-primary to-secondary drop-shadow-[0_6px_20px_rgba(79,70,229,0.35)]"
+                                className="text-2xl font-black tracking-tight text-foreground drop-shadow-[0_6px_20px_rgba(79,70,229,0.3)] dark:text-white"
                             >
                                 Vynspire
                             </Link>
@@ -50,7 +50,11 @@ export function Navbar() {
                                             Write
                                         </Button>
                                     </Link>
-                                    <div className="flex items-center gap-3 px-4 py-1.5 rounded-full border border-border/40 bg-white/90 text-sm font-medium text-foreground shadow-inner dark:bg-white/10 dark:text-white">
+                                    <Link
+                                        href="/profile"
+                                        className="flex items-center gap-3 px-4 py-1.5 rounded-full border border-border/40 bg-white/90 text-sm font-medium text-foreground shadow-inner transition hover:border-primary/50 hover:shadow-[0_12px_35px_rgba(79,70,229,0.25)] dark:bg-white/10 dark:text-white"
+                                        aria-label="View profile"
+                                    >
                                         <div className="w-9 h-9 rounded-full bg-gradient-to-br from-primary via-secondary to-secondary/90 text-foreground dark:text-white flex items-center justify-center font-semibold ring-2 ring-white/70 dark:ring-white/20 shadow-[0_10px_25px_rgba(79,70,229,0.5)]">
                                             {user.name.charAt(0)}
                                         </div>
@@ -60,7 +64,7 @@ export function Navbar() {
                                             </span>
                                             <span>{user.name}</span>
                                         </div>
-                                    </div>
+                                    </Link>
                                     <Button variant="destructive" size="sm" onClick={handleLogout}>
                                         <LogOut size={18} />
                                     </Button>
