@@ -31,7 +31,7 @@ export function Navbar() {
                         <div className="flex items-center gap-4">
                             <Link
                                 href="/"
-                                className="text-2xl font-black tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-primary via-secondary to-secondary/70"
+                                className="text-2xl font-black tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-foreground via-primary to-secondary drop-shadow-[0_6px_20px_rgba(79,70,229,0.35)]"
                             >
                                 Vynspire
                             </Link>
@@ -40,7 +40,7 @@ export function Navbar() {
                             </span>
                         </div>
 
-                        <div className="flex items-center gap-2 sm:gap-3">
+                        <div className="flex items-center gap-2 sm:gap-3 text-foreground">
                             <ThemeToggle />
                             {user ? (
                                 <>
@@ -50,8 +50,8 @@ export function Navbar() {
                                             Write
                                         </Button>
                                     </Link>
-                                    <div className="flex items-center gap-3 px-4 py-1.5 rounded-full border border-border/40 bg-white/40 text-sm font-medium text-foreground shadow-inner dark:bg-white/10">
-                                        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-primary to-secondary text-white flex items-center justify-center font-semibold">
+                                    <div className="flex items-center gap-3 px-4 py-1.5 rounded-full border border-border/40 bg-white/90 text-sm font-medium text-foreground shadow-inner dark:bg-white/10 dark:text-white">
+                                        <div className="w-9 h-9 rounded-full bg-gradient-to-br from-primary via-secondary to-secondary/90 text-foreground dark:text-white flex items-center justify-center font-semibold ring-2 ring-white/70 dark:ring-white/20 shadow-[0_10px_25px_rgba(79,70,229,0.5)]">
                                             {user.name.charAt(0)}
                                         </div>
                                         <div className="hidden sm:flex flex-col leading-tight">
@@ -68,7 +68,7 @@ export function Navbar() {
                             ) : (
                                 <>
                                     <Link href="/login">
-                                        <Button variant="ghost" size="sm" className="px-4">
+                                        <Button variant="ghost" size="sm" className="px-4 text-foreground">
                                             Login
                                         </Button>
                                     </Link>

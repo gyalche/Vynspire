@@ -54,14 +54,15 @@ export function SearchFilter({
                     return (
                         <Button
                             key={category}
-                            variant="ghost"
+                            variant={isActive ? 'default' : 'outline'}
                             size="sm"
                             onClick={() => setSelectedCategory(category)}
+                            aria-pressed={isActive}
                             className={cn(
-                                'whitespace-nowrap border transition-all duration-200',
+                                'whitespace-nowrap rounded-full px-4 text-xs md:text-sm transition-all duration-200',
                                 isActive
-                                    ? 'bg-gradient-to-r from-primary to-secondary text-white border-transparent shadow-[0_12px_30px_rgba(79,70,229,0.35)]'
-                                    : 'text-muted-foreground border-border/40 hover:text-foreground hover:border-border/80'
+                                    ? 'shadow-[0_15px_35px_rgba(79,70,229,0.35)]'
+                                    : 'text-muted-foreground border-border/60 bg-white/80 hover:text-foreground hover:border-border/80 dark:bg-white/10 dark:text-white/70'
                             )}
                         >
                             {category}

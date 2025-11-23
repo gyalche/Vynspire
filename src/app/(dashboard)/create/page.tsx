@@ -32,14 +32,22 @@ export default function CreatePostPage() {
     if (!isAuthenticated) return null;
 
     return (
-        <div className="max-w-3xl mx-auto pb-10">
-            <Card className="border-white/10 bg-black/40 backdrop-blur-xl">
-                <CardHeader>
-                    <CardTitle className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary">
-                        Create New Story
+        <div className="max-w-4xl mx-auto pb-12 space-y-8">
+            <section className="glass rounded-3xl border border-border/40 p-8 shadow-[0_35px_80px_rgba(15,23,42,0.15)]">
+                <p className="text-xs uppercase tracking-[0.65em] text-primary/80 mb-3">Write mode</p>
+                <h1 className="text-4xl font-bold text-foreground mb-4">Craft your next story</h1>
+                <p className="text-muted-foreground max-w-2xl">
+                    Share thoughtful takes, product ideas, or deep dives with the Vynspire community. Polished tools and
+                    distraction-free writing keep you focused on the narrative.
+                </p>
+            </section>
+            <Card className="glass border border-border/40 bg-card/85">
+                <CardHeader className="border-b border-border/40">
+                    <CardTitle className="text-2xl font-semibold text-foreground">
+                        Story details
                     </CardTitle>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="pt-6">
                     <PostForm
                         onSubmit={handleSubmit}
                         isLoading={isLoading}

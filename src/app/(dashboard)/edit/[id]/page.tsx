@@ -43,14 +43,21 @@ export default function EditPostPage({ params }: { params: { id: string } }) {
     }
 
     return (
-        <div className="max-w-3xl mx-auto pb-10">
-            <Card className="border-white/10 bg-black/40 backdrop-blur-xl">
-                <CardHeader>
-                    <CardTitle className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary">
-                        Edit Story
+        <div className="max-w-4xl mx-auto pb-12 space-y-8">
+            <section className="glass rounded-3xl border border-border/40 p-8 shadow-[0_35px_80px_rgba(15,23,42,0.15)]">
+                <p className="text-xs uppercase tracking-[0.65em] text-primary/80 mb-3">Polish & refine</p>
+                <h1 className="text-4xl font-bold text-foreground mb-4">Update your story</h1>
+                <p className="text-muted-foreground max-w-2xl">
+                    Make final tweaks, iterate on feedback, and keep your readers up to date with new ideas.
+                </p>
+            </section>
+            <Card className="glass border border-border/40 bg-card/85">
+                <CardHeader className="border-b border-border/40">
+                    <CardTitle className="text-2xl font-semibold text-foreground">
+                        Story details
                     </CardTitle>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="pt-6">
                     {currentPost && (
                         <PostForm
                             initialData={currentPost}
