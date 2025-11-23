@@ -55,8 +55,13 @@ export function Navbar() {
                                         className="flex items-center gap-3 px-4 py-1.5 rounded-full border border-border/40 bg-white/90 text-sm font-medium text-foreground shadow-inner transition hover:border-primary/50 hover:shadow-[0_12px_35px_rgba(79,70,229,0.25)] dark:bg-white/10 dark:text-white"
                                         aria-label="View profile"
                                     >
-                                        <div className="w-9 h-9 rounded-full bg-gradient-to-br from-primary via-secondary to-secondary/90 text-foreground dark:text-white flex items-center justify-center font-semibold ring-2 ring-white/70 dark:ring-white/20 shadow-[0_10px_25px_rgba(79,70,229,0.5)]">
-                                            {user.name.charAt(0)}
+                                        <div className="w-9 h-9 rounded-full bg-gradient-to-br from-primary via-secondary to-secondary/90 text-foreground dark:text-white flex items-center justify-center font-semibold ring-2 ring-white/70 dark:ring-white/20 shadow-[0_10px_25px_rgba(79,70,229,0.5)] overflow-hidden">
+                                            {user.avatarUrl ? (
+                                                // eslint-disable-next-line @next/next/no-img-element
+                                                <img src={user.avatarUrl} alt={`${user.name} avatar`} className="w-full h-full object-cover" />
+                                            ) : (
+                                                user.name.charAt(0)
+                                            )}
                                         </div>
                                         <div className="hidden sm:flex flex-col leading-tight">
                                             <span className="text-[0.65rem] uppercase tracking-wide text-muted-foreground">
