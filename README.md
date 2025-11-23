@@ -1,36 +1,41 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Vynspire – Modern Storytelling Platform
 
-## Getting Started
+Vynspire is a polished blogging experience built on the App Router and Tailwind v4. It blends a bespoke light/dark design system, motion, and subtle glassmorphism to keep reading and writing feel premium across desktop, tablet, and mobile.
 
-First, run the development server:
+## ✨ Core Features
+
+- **Immersive theming** – Dual light/dark palettes with gradient typography, frosted glass surfaces, and system-aware transitions managed via `next-themes`.
+- **Responsive glass navbar** – Desktop pill navigation with scroll-in motion, plus a mobile drawer (burger + sidebar) that mirrors profile, write, auth, and theme controls.
+- **Home discovery** – Gradient hero with stats, animated post cards, skeleton loaders, search with quick filters, and framer-motion entry.
+- **AI-assisted writing** – Post form includes a “Generate with AI” helper that drafts outlines based on title and category, so writers can jump straight to editing.
+- **Story detail polish** – Detail page prefetches metadata, gracefully falls back to AI-generated content, supports manual regeneration, and offers a “Listen to content” text-to-speech control.
+- **User accounts** – Mock auth flow (login/register) with Zustand state, profile editing, name/email updates, avatar uploads with previews, and persistent storage.
+- **Creation suite** – Create/Edit pages reuse the glass form shell, show contextual hero copy, and keep action buttons consistent with the main theme.
+- **Feedback loops** – `sonner` toasts for auth, CRUD, and AI actions; inline loading spinners; animated empty states when filters match no posts.
+- **Accessibility considerate** – Focus styles, aria labels on theme/profile toggles, responsive buttons, and speech synthesis fallback detection.
+
+## 🚀 Getting Started
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+# then visit http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- `npm run lint` – ESLint with TypeScript rules
+- Mock data/API: see `src/lib/api/mockApi.ts`
+- Global styles & tokens: `src/app/globals.css`
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🗺️ Project Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- `src/app` – Route groups for auth, dashboard (create/edit/profile/detail), and the landing page.
+- `src/components` – UI atoms (Button/Input/Card), layout (Navbar), posts (Card, Filter, Skeleton), providers (Theme).
+- `src/lib` – Zustand stores (`authStore`, `postStore`) and mock API helpers.
 
-## Learn More
+## 📌 Notes & Next Ideas
 
-To learn more about Next.js, take a look at the following resources:
+- Current mock API simulates network latency; swap with a real backend when ready.
+- ESLint currently flags legacy `any` usage in auth/post flows—refine types when backfilling real APIs.
+- Consider adding RSS, scheduled publishing, or custom voices for the text-to-speech control.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Enjoy building and sharing with Vynspire! ✍️📖✨
